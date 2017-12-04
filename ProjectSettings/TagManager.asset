@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Villager
   - Material
+  - Depleated
   layers:
   - Default
   - TransparentFX

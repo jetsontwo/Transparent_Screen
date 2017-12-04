@@ -5,7 +5,7 @@ using UnityEngine;
 public class Load_Resources : MonoBehaviour {
 
 
-    private GameObject[] villagers = new GameObject[200];
+    private GameObject[] villagers = new GameObject[100];
     private int count = 0;
     public GameObject villager;
     public float timer;
@@ -23,6 +23,10 @@ public class Load_Resources : MonoBehaviour {
             PlayerPrefs.SetInt("food", 0);
         if (!PlayerPrefs.HasKey("villagers"))
             PlayerPrefs.SetInt("villagers", 10);
+
+        //For testing only
+        PlayerPrefs.SetInt("villagers", 100);
+
         for (int i = 0; i < PlayerPrefs.GetInt("villagers"); ++i)
         {
             villagers[count++] = Instantiate(villager, Vector2.zero, Quaternion.identity, transform);
@@ -61,5 +65,10 @@ public class Load_Resources : MonoBehaviour {
             Instantiate(resource, new Vector2(Random.Range(0, 8.5f) * x_mod, Random.Range(3.5f, 4.5f) * y_mod), Quaternion.identity, Material_Parent.transform);
         else
             Instantiate(resource, new Vector2(Random.Range(7.5f, 8.5f) * x_mod, Random.Range(0, 4.5f) * y_mod), Quaternion.identity, Material_Parent.transform);
+    }
+
+    public void Reset_Game()
+    {
+        PlayerPrefs.DeleteAll();
     }
 }

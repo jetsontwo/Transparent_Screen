@@ -324,7 +324,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1982822549}
   - component: {fileID: 1982822550}
-  m_Layer: 8
+  m_Layer: 2
   m_Name: Buildable_Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
