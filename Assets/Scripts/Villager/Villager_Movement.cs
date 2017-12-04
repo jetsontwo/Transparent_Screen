@@ -5,8 +5,6 @@ using UnityEngine;
 public class Villager_Movement : MonoBehaviour {
 
     private Rigidbody2D rb;
-
-    private Vector2 next_position;
     private bool has_position = false;
     public float speed;
 
@@ -19,28 +17,37 @@ public class Villager_Movement : MonoBehaviour {
 
     private void Begin()
     {
+        Vector2 next_position = Vector2.zero;
         if (!has_position)
         {
-            next_position = new Vector2(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
+            next_position = new Vector2(Random.Range(-8f, 8f), Random.Range(-4f, 4f));
+            //print(next_position);
             has_position = true;
         }
-        StartCoroutine(Walking());
+        StartCoroutine(Go_To_Position(next_position));
     }
 
-    private IEnumerator Walking()
+    private IEnumerator Go_To_Position(Vector2 pos)
     {
         while(true)
         {
-            transform.LookAt(next_position);
-            transform.Translate(Vector2.right * speed * Time.deltaTime);
-            if(((Vector2) transform.position - next_position).magnitude < 1)
+            rb.velocity = (-((Vector2) transform.position - pos).normalized * speed * Time.deltaTime);
+            if(((Vector2) transform.position - pos).magnitude < 0.2f)
             {
+                rb.velocity = Vector3.zero;
                 yield return new WaitForSeconds(0.5f);
                 has_position = false;
-                Begin();
+                break;
             }
             yield return new WaitForSeconds(0.1f);
         }
+        Begin();
     }
+
+
+    //private IEnumerator Gather()
+    //{
+
+    //}
 
 }

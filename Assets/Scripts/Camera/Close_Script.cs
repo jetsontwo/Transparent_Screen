@@ -15,7 +15,7 @@ public class Close_Script : MonoBehaviour {
     {
         Vector2 new_pos = Input.mousePosition;
 
-        if (new_pos.magnitude - mouse_pos.magnitude > 1 || Input.anyKey || Input.GetMouseButton(0))
+        if (new_pos.magnitude - mouse_pos.magnitude > 0.5f || Input.anyKey || Input.GetMouseButton(0))
         {
             Cursor.visible = true;
             Application.Quit();
