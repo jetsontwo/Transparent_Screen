@@ -77,17 +77,15 @@ LightmapSettings:
     m_PVRDirectSampleCount: 32
     m_PVRSampleCount: 500
     m_PVRBounces: 2
-    m_PVRFilterTypeDirect: 0
-    m_PVRFilterTypeIndirect: 0
-    m_PVRFilterTypeAO: 0
+    m_PVRFiltering: 0
     m_PVRFilteringMode: 1
     m_PVRCulling: 1
     m_PVRFilteringGaussRadiusDirect: 1
     m_PVRFilteringGaussRadiusIndirect: 5
     m_PVRFilteringGaussRadiusAO: 2
-    m_PVRFilteringAtrousPositionSigmaDirect: 0.5
-    m_PVRFilteringAtrousPositionSigmaIndirect: 2
-    m_PVRFilteringAtrousPositionSigmaAO: 1
+    m_PVRFilteringAtrousColorSigma: 1
+    m_PVRFilteringAtrousNormalSigma: 1
+    m_PVRFilteringAtrousPositionSigma: 1
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -109,8 +107,6 @@ NavMeshSettings:
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
-    debug:
-      m_Flags: 0
   m_NavMeshData: {fileID: 0}
 --- !u!1001 &943073799
 Prefab:
@@ -121,11 +117,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4429679554387110, guid: 00d8c3d9da247dd4db13bbf4ba13d0ff, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1.75
       objectReference: {fileID: 0}
     - target: {fileID: 4429679554387110, guid: 00d8c3d9da247dd4db13bbf4ba13d0ff, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.81
       objectReference: {fileID: 0}
     - target: {fileID: 4429679554387110, guid: 00d8c3d9da247dd4db13bbf4ba13d0ff, type: 2}
       propertyPath: m_LocalPosition.z
@@ -150,6 +146,10 @@ Prefab:
     - target: {fileID: 4429679554387110, guid: 00d8c3d9da247dd4db13bbf4ba13d0ff, type: 2}
       propertyPath: m_RootOrder
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1571953838465234, guid: 00d8c3d9da247dd4db13bbf4ba13d0ff, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 00d8c3d9da247dd4db13bbf4ba13d0ff, type: 2}
@@ -231,6 +231,7 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+  m_StereoMirrorMode: 0
 --- !u!4 &1105081634
 Transform:
   m_ObjectHideFlags: 0
@@ -324,7 +325,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1982822549}
   - component: {fileID: 1982822550}
-  m_Layer: 2
+  m_Layer: 8
   m_Name: Buildable_Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -367,7 +368,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 15, y: 7}
+  m_Size: {x: 14, y: 6.5}
   m_EdgeRadius: 0
 --- !u!1 &2053738220
 GameObject:

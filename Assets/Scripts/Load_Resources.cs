@@ -15,6 +15,10 @@ public class Load_Resources : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        //For testing only
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.SetInt("villagers", 100);
+
         if (!PlayerPrefs.HasKey("stone"))
             PlayerPrefs.SetInt("stone", 0);
         if (!PlayerPrefs.HasKey("wood"))
@@ -24,8 +28,7 @@ public class Load_Resources : MonoBehaviour {
         if (!PlayerPrefs.HasKey("villagers"))
             PlayerPrefs.SetInt("villagers", 10);
 
-        //For testing only
-        PlayerPrefs.SetInt("villagers", 100);
+
 
         for (int i = 0; i < PlayerPrefs.GetInt("villagers"); ++i)
         {

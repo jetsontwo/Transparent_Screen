@@ -6,6 +6,7 @@ public class Villager_Movement : MonoBehaviour {
 
     private Rigidbody2D rb;
     private bool at_position = false;
+    public GameObject hut;
     public float speed;
 
 	// Use this for initialization
@@ -23,6 +24,14 @@ public class Villager_Movement : MonoBehaviour {
             resource.GetComponent<Material_Controller>().ClaimResource();
             StartCoroutine(Gather(resource));
         }
+        else if (can_upgrade_hut())
+        {
+            //Upgrade here
+        }
+        else if(can_build_hut())
+        {
+            StartCoroutine(Build());
+        }
         else
             StartCoroutine(Wander());
 
@@ -32,6 +41,23 @@ public class Villager_Movement : MonoBehaviour {
     //States
 
 
+    private IEnumerator Build()
+    {
+        PlayerPrefs.SetInt("stone", PlayerPrefs.GetInt("stone") - 5);
+        PlayerPrefs.SetInt("wood", PlayerPrefs.GetInt("wood") - 10);
+        GameObject h = Instantiate(hut, transform.position, Quaternion.identity);
+        for(int i = 0; i < 3; ++i)
+        {
+            yield return new WaitForSeconds(1f);
+            h.GetComponent<Hut_Controller>().addStage();
+        }
+        Begin();
+    }
+
+    private IEnumerator Upgrade(GameObject existing_hut)
+    {
+        yield return new WaitForSeconds(0.1f);
+    }
 
     private IEnumerator Gather(GameObject resource)
     {
@@ -39,10 +65,9 @@ public class Villager_Movement : MonoBehaviour {
         yield return new WaitUntil(Get_at_position);
 
         //The wait for the gathering animation
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(5f);
         resource.GetComponent<Material_Controller>().GetResource();
         Begin();
-
     }
 
     private IEnumerator Wander()
@@ -96,4 +121,23 @@ public class Villager_Movement : MonoBehaviour {
         }
         return closest;
     }
+
+    private bool can_build_hut()
+    {
+        RaycastHit2D rh = Physics2D.Raycast(transform.position, Vector2.zero, 0, (1<<LayerMask.NameToLayer("Buildable")));
+        if(rh.collider)
+        {
+            //Means its on buildable ground
+            if(PlayerPrefs.GetInt("stone") > 5 && PlayerPrefs.GetInt("wood") > 10)
+                return true;
+            
+        }
+        return false;
+    }
+
+    private bool can_upgrade_hut()
+    {
+        return false;
+    }
+
 }
