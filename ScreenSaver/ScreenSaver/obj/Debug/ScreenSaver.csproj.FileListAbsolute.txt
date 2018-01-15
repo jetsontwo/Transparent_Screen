@@ -1,0 +1,9 @@
+c:\users\jetso\documents\visual studio 2015\Projects\ScreenSaver\ScreenSaver\bin\Debug\ScreenSaver.exe.config
+c:\users\jetso\documents\visual studio 2015\Projects\ScreenSaver\ScreenSaver\bin\Debug\ScreenSaver.exe
+c:\users\jetso\documents\visual studio 2015\Projects\ScreenSaver\ScreenSaver\bin\Debug\ScreenSaver.pdb
+c:\users\jetso\documents\visual studio 2015\Projects\ScreenSaver\ScreenSaver\obj\Debug\ScreenSaver.csprojResolveAssemblyReference.cache
+c:\users\jetso\documents\visual studio 2015\Projects\ScreenSaver\ScreenSaver\obj\Debug\ScreenSaver.Properties.Resources.resources
+c:\users\jetso\documents\visual studio 2015\Projects\ScreenSaver\ScreenSaver\obj\Debug\ScreenSaver.ScreenSaverForm.resources
+c:\users\jetso\documents\visual studio 2015\Projects\ScreenSaver\ScreenSaver\obj\Debug\ScreenSaver.csproj.GenerateResource.Cache
+c:\users\jetso\documents\visual studio 2015\Projects\ScreenSaver\ScreenSaver\obj\Debug\ScreenSaver.exe
+c:\users\jetso\documents\visual studio 2015\Projects\ScreenSaver\ScreenSaver\obj\Debug\ScreenSaver.pdb
