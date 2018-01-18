@@ -8,6 +8,7 @@ public class Villager_Movement : MonoBehaviour {
     private bool at_position = false;
     public GameObject hut;
     public float speed;
+    public LayerMask buildalbe_layers;
 
 	// Use this for initialization
 	void Start () {
@@ -18,23 +19,38 @@ public class Villager_Movement : MonoBehaviour {
 
     private void Begin()
     {
-        GameObject resource = find_closest_resource();
-        if (resource != null)
+        if(can_build_hut() || can_upgrade_hut())
         {
-            resource.GetComponent<Material_Controller>().ClaimResource();
-            StartCoroutine(Gather(resource));
-        }
-        else if (can_upgrade_hut())
-        {
-            //Upgrade here
-        }
-        else if(can_build_hut())
-        {
-            StartCoroutine(Build());
+            GameObject building = scan_for_building();
+
+            float rand_val = Random.Range(0f, 1f);
+
+            if (building && can_upgrade_hut())
+                StartCoroutine(Upgrade(building));
+            else if (can_build_hut() && rand_val < 0.3f)
+                StartCoroutine(Build());
+            else
+                StartCoroutine(Wander());
         }
         else
-            StartCoroutine(Wander());
-
+        {
+            GameObject resource = find_closest_resource();
+            if (resource != null)
+            {
+                resource.GetComponent<Material_Controller>().ClaimResource();
+                StartCoroutine(Gather(resource));
+            }
+            else
+                StartCoroutine(Wander());
+        }
+        //else if (can_upgrade_hut())
+        //{
+        //    //Upgrade here
+        //}
+        //else if (can_build_hut())
+        //{
+        //    StartCoroutine(Build());
+        //}
     }
 
 
@@ -51,12 +67,17 @@ public class Villager_Movement : MonoBehaviour {
             yield return new WaitForSeconds(1f);
             h.GetComponent<Hut_Controller>().addStage();
         }
+        StopAllCoroutines();
         Begin();
     }
 
     private IEnumerator Upgrade(GameObject existing_hut)
     {
-        yield return new WaitForSeconds(0.1f);
+        //Walk to building and then upgrade
+        print("wanting to upgrade");
+        yield return new WaitForSeconds(2f);
+        StopAllCoroutines();
+        Begin();
     }
 
     private IEnumerator Gather(GameObject resource)
@@ -67,6 +88,7 @@ public class Villager_Movement : MonoBehaviour {
         //The wait for the gathering animation
         yield return new WaitForSeconds(5f);
         resource.GetComponent<Material_Controller>().GetResource();
+        StopAllCoroutines();
         Begin();
     }
 
@@ -74,6 +96,7 @@ public class Villager_Movement : MonoBehaviour {
     {
         StartCoroutine(Go_To_Position(new Vector2(Random.Range(-8f, 8f), Random.Range(-4f, 4f))));
         yield return new WaitUntil(Get_at_position);
+        StopAllCoroutines();
         Begin();
     }
 
@@ -122,21 +145,40 @@ public class Villager_Movement : MonoBehaviour {
         return closest;
     }
 
+    private GameObject scan_for_building()
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 2);
+        return colliders[0].gameObject;
+    }
+
     private bool can_build_hut()
     {
-        RaycastHit2D rh = Physics2D.Raycast(transform.position, Vector2.zero, 0, (1<<LayerMask.NameToLayer("Buildable")));
+        RaycastHit2D rh = Physics2D.Raycast(transform.position, Vector2.zero, 0, buildalbe_layers);
         if(rh.collider)
         {
             //Means its on buildable ground
-            if(PlayerPrefs.GetInt("stone") > 5 && PlayerPrefs.GetInt("wood") > 10)
+            if(PlayerPrefs.GetInt("stone") > 5 && PlayerPrefs.GetInt("wood") > 10 && rh.collider.gameObject.layer == 9)
+            {
                 return true;
-            
+            }
+
         }
         return false;
     }
 
     private bool can_upgrade_hut()
     {
+        Collider2D[] rh = Physics2D.OverlapCircleAll(transform.position, 2);
+        foreach(Collider2D c in rh)
+        {
+            //Means its on buildable ground
+            if (PlayerPrefs.GetInt("stone") > 15 && PlayerPrefs.GetInt("wood") > 30 && c.gameObject.layer == 10)
+            {
+                print(c.name);
+                return true;
+            }
+
+        }
         return false;
     }
 

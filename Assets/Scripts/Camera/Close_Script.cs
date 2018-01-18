@@ -8,6 +8,7 @@ public class Close_Script : MonoBehaviour {
 
     void Start()
     {
+        Time.timeScale = 3f;
         mouse_pos = Input.mousePosition;
     }
 

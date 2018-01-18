@@ -4,17 +4,12 @@ using UnityEngine;
 
 public class movement_test : MonoBehaviour {
 
-	bool sw = false;
-	
-	// Update is called once per frame
-	void Update () {
-        if (transform.position.x > 5 || transform.position.x < -5)
-            sw = !sw;
-        if (sw)
-        {
-            transform.Translate(Vector3.right * -0.5f);
-        }
-        else
-            transform.Translate(Vector3.right * 0.5f);
+    public LayerMask buildalbe_layers;
+
+    // Update is called once per frame
+    void Update () {
+        Vector2 mouse_pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (Input.GetMouseButtonDown(0))
+            print(Physics2D.Raycast(mouse_pos, Vector2.zero, 1f, buildalbe_layers).collider.name);
     }
 }
